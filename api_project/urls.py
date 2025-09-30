@@ -3,5 +3,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),  # Routes /api/books/ to BookList
+    path('api/', include('api.urls')),  # This makes /api/books/ available
 ]

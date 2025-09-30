@@ -53,3 +53,30 @@ Permission checks are enforced in views using decorators:
 @permission_required('bookshelf.can_edit', raise_exception=True)
 def book_edit(request, pk):
     ...
+
+    ## Permissions and Security Implementation
+
+### Custom Permissions
+- Added custom permissions to the `Book` model: `can_view`, `can_create`, `can_edit`, `can_delete`.
+- Permissions are enforced in views using `@permission_required('bookshelf.can_view', raise_exception=True)`.
+
+### Groups
+- Created groups: Editors, Viewers, Admins.
+- Assigned relevant permissions to each group using the Django admin.
+
+### Secure Views
+- Used Django ORM for queries (safe from SQL injection).
+- Used `BookForm` for create/edit to validate user input.
+- Decorated all views with `login_required` and `permission_required` to enforce access control.
+
+### Templates
+- All forms include `{% csrf_token %}` to protect against CSRF attacks.
+
+### Security Settings
+- `DEBUG = False` in production.
+- Set `SECURE_BROWSER_XSS_FILTER`, `X_FRAME_OPTIONS`, and `SECURE_CONTENT_TYPE_NOSNIFF` in `settings.py`.
+- `CSRF_COOKIE_SECURE` and `SESSION_COOKIE_SECURE` set to `True` for HTTPS-only cookies.
+
+### Testing
+- Created test users and assigned them to different groups.
+- Verified that permissions are enforced correctly when performing actions in the app.

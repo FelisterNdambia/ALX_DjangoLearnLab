@@ -34,20 +34,28 @@ import os
 DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
 import os
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = "DENY"
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allow HSTS preloading in browsers
+
+# Ensure session cookies are transmitted over HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Ensure CSRF cookies are transmitted over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# Prevent the site from being loaded in an iframe (clickjacking protection)
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent browsers from MIME-sniffing responses
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
-
-SECURE_SSL_REDIRECT = os.getenv("DJANGO_SECURE_SSL_REDIRECT", "False") == "True"
-SECURE_HSTS_SECONDS = int(os.getenv("DJANGO_HSTS_SECONDS", "0"))
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-
+# Enable browser XSS filter
+SECURE_BROWSER_XSS_FILTER = True
 
 # Application definition
 INSTALLED_APPS = ["csp"]

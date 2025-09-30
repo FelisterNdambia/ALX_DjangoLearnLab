@@ -80,3 +80,33 @@ def book_edit(request, pk):
 ### Testing
 - Created test users and assigned them to different groups.
 - Verified that permissions are enforced correctly when performing actions in the app.
+
+# Security Configurations Implemented
+
+1. **HTTPS Enforcement**
+   - `SECURE_SSL_REDIRECT = True`
+   - All HTTP requests are redirected to HTTPS.
+
+2. **HSTS**
+   - `SECURE_HSTS_SECONDS = 31536000`
+   - `SECURE_HSTS_INCLUDE_SUBDOMAINS = True`
+   - `SECURE_HSTS_PRELOAD = True`
+   - Ensures browsers only use HTTPS for 1 year and includes subdomains.
+
+3. **Secure Cookies**
+   - `SESSION_COOKIE_SECURE = True`
+   - `CSRF_COOKIE_SECURE = True`
+   - Cookies transmitted only over HTTPS.
+
+4. **Secure Headers**
+   - `X_FRAME_OPTIONS = 'DENY'` → prevents clickjacking.
+   - `SECURE_CONTENT_TYPE_NOSNIFF = True` → prevents MIME sniffing.
+   - `SECURE_BROWSER_XSS_FILTER = True` → enables XSS filtering in browsers.
+
+5. **Deployment**
+   - SSL/TLS certificates installed on web server.
+   - HTTP requests automatically redirected to HTTPS.
+
+6. **Next Steps**
+   - Periodically review SSL certificate expiry.
+   - Check all forms and endpoints for secure input handling.
